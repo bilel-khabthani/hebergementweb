@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: backend
+    env: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGO_URI
+        value: mongodb+srv://bilelkhabtani11:%40Bilel2003@cluster0.ens8wcs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&appName=Cluster0
+      - key: JWT_SECRET
+        value: pegasio123
+      - key: CLIENT_URL
+        value: https://frontend.onrender.com
+      - key: TAWKTO_SECRET
+        value: 64e13033b85f4e24c1020b822bba146561e6aee3
+
+  - type: static
+    name: frontend
+    rootDir: client
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://backend.onrender.com
