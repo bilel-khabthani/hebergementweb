@@ -31,7 +31,7 @@ export default function Support() {
   const MAX_RETRIES = 2;
 
   // Fallback API URL if VITE_API_URL is undefined
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+  const API_URL = import.meta.env.VITE_API_URL || 'https://memo-bosi.onrender.com';
 
   
 
