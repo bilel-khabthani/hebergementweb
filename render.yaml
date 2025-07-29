@@ -15,7 +15,7 @@ services:
       - key: TAWKTO_SECRET
         value: 64e13033b85f4e24c1020b822bba146561e6aee3
 
-  - type: static
+  - type: web
     name: frontend
     rootDir: client
     buildCommand: npm install && npm run build
