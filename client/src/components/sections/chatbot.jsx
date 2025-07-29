@@ -17,7 +17,7 @@ export default function Chatbot({ isChatOpen, toggleChat }) {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/chat/questions");
+        const res = await fetch("https://memo-bosi.onrender.com/api/chat/questions");
         const data = await res.json();
         setQuestions(data);
       } catch (err) {
@@ -74,7 +74,7 @@ export default function Chatbot({ isChatOpen, toggleChat }) {
     setIsTyping(true);
 
     try {
-      const res = await fetch("http://localhost:8080/api/chat", {
+      const res = await fetch("https://memo-bosi.onrender.com/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: questionText }),
