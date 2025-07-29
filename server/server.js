@@ -26,13 +26,29 @@ const generateTawkHash = (userId) => {
   return crypto.createHash('md5').update(userId + secret).digest('hex');
 };
 
-// ✅ Middleware CORS (AVANT les routes)
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://memo-nto3.onrender.com',
+  'https://memo-frontend-autre-url.com' // ajoute toutes tes URLs frontend ici
+];
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: function(origin, callback) {
+    // Permet les requêtes sans origin (ex: Postman ou curl)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS','PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'x-token'], // Autorise x-token
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-token'],
 }));
+
 
 // Middleware JSON & cookies
 app.use(express.json());
