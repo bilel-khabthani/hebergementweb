@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create a reusable Axios instance
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api/auth', // ✅ Change if your backend runs on a different port or subdomain
+  baseURL: 'https://memo-bosi.onrender.com/api/auth', // ✅ Change if your backend runs on a different port or subdomain
   withCredentials: true, // 🧠 Sends/receives cookies like preAuthToken and token
 });
 

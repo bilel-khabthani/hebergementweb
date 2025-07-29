@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/panier";
+const API_URL = "https://memo-bosi.onrender.com/api/panier";
 
 export const addToCart = async (produitId, quantite = 1) => {
   const token = localStorage.getItem("token");

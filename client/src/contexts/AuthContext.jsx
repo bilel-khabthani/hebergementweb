@@ -82,7 +82,7 @@ const configureTawkTo = (user) => {
 };
   const loginWithGoogle = async (googleData) => {
     try {
-      const res = await axios.post('http://localhost:8080/api/auth/google', googleData, {
+      const res = await axios.post('https://memo-bosi.onrender.com/api/auth/google', googleData, {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',

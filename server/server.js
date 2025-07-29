@@ -17,7 +17,7 @@ import chatRoutes from './routes/chatRoutes.js';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 10000;
 
 // Connexion à la base de données
 connectDB();
@@ -61,7 +61,7 @@ app.use('/api/newsletter', newsletterRouter);
 app.use('/api/messages', messageRouter);
 app.use('/api/support', supportRouter); // Added support route
 app.use("/api/chat", chatRoutes);
-// 👉 ROUTE OLLAMA POUR TON CHATBOT
+/* 👉 ROUTE OLLAMA POUR TON CHATBOT
 app.post('/api/chat', async (req, res) => {
   const { message } = req.body;
   console.log('📝 Message reçu du frontend :', message);
@@ -92,7 +92,7 @@ app.post('/api/chat', async (req, res) => {
     console.error('❌ Erreur Ollama :', err);
     res.status(500).json({ error: 'Erreur avec le modèle local' });
   }
-});
+});*/
 
 app.get('/', (req, res) => {
   res.send('Server is running');

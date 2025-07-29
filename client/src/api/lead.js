@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     const { company, email, phone, needs } = req.body;
 
     // 1. Enregistrement dans le CRM
-    const crmResponse = await fetch('https://votre-crm.com/api/leads', {
+    const crmResponse = await fetch('https://memo-bosi.onrender.com/api/leads', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
