@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { PlayCircle, X } from "lucide-react";
-import demoVideo from "../../assets/demo.mp4"; // adjust path
+import demoVideo from "../../assets/Demo.mp4"; // adjust path
 
 const video = {
   title: "Découvrez MEMO en action",
