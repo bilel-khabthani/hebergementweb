@@ -35,7 +35,7 @@ export const checkAuthUser = async () => {
 //-------------------------------
 // 🚪 LOGOUT
 export const logoutUser = async () => {
-  return await api.get('/logout');
+  return await api.get('/logout');}
 
   
 //-------------------------------
@@ -54,4 +54,5 @@ export const resetPasswordUser = async (formdata) => {
   return await api.post('/reset-password',  formdata );
 };
 
-export default api;
+export default api; 
+
