@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation,Navigate } from "react-router
 import "./index.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ScrollToTopMotion from "./components/ScrollToTopMotion";
 
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -162,6 +163,7 @@ function AppContent() {
 export default function App() {
   return (
     <BrowserRouter>
+    <ScrollToTopMotion />
     <AuthProvider>
       <CartProvider>
         <AppContent />

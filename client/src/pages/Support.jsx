@@ -314,40 +314,7 @@ export default function Support() {
             </AnimatePresence>
           </div>
 
-{/* Trusted Clients */}
-<div className="mt-8">
-  <h2 className="text-2xl font-bold mb-4 text-red-500">Ils nous font confiance</h2>
-  <div className="grid grid-cols-2 gap-4">
-    {[
-      { 
-        name: 'WSM', 
-        logo: wsm,
-        url: 'https://www.wschupfer.com/new-york?region=row&fbclid=IwY2xjawLs2dZleHRuA2FlbQIxMABicmlkETFLZEtaM3RLMmVNZURrSTYyAR5XuBCe04LC7Z3w2sDS0rmj_0jk8GPZCydSi5AIjN2pgni9lNjNvHzAfofVrQ_aem_IQ31J7G7oOcFJDIXcsHvjg'
-      },
-      { 
-        name: '360 Degrés Fahrenheit', 
-        logo: image360f,
-        url: 'https://www.3cent60.net/'
-      }
-    ].map((client, index) => (
-      <motion.div
-        key={index}
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3 }}
-        whileHover={{ scale: 1.05 }}
-        className={`${colors.cardBg} rounded-xl shadow-lg p-4 flex items-center justify-center cursor-pointer`}
-        onClick={() => window.open(client.url, '_blank')}
-      >
-        <img 
-          src={client.logo} 
-          alt={client.name} 
-          className="max-h-16 max-w-full object-contain" 
-        />
-      </motion.div>
-    ))}
-  </div>
-</div>
+
 
           
         </div>
@@ -374,7 +341,7 @@ export default function Support() {
             <div className="space-y-4">
               <div>
                 <p className="text-gray-500">Email</p>
-                <p className="text-lg font-semibold text-red-500">contact@habile-solutions.com</p>
+                <p className="text-lg font-semibold text-red-500">info@salambo-proserv.com</p>
               </div>
               <div>
                 <p className="text-gray-500">Disponibilité</p>
