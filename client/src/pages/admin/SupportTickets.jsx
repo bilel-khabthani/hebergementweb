@@ -53,6 +53,7 @@ export default function SupportTickets() {
         console.log('GET URL:', `${API_URL}/api/support/admin/tickets?page=${currentPage}&limit=${itemsPerPage}`);
         const response = await axios.get(`${API_URL}/api/support/admin/tickets`, {
   params: { page: currentPage, limit: itemsPerPage },
+  headers: { 'Authorization': `Bearer ${token}` },
   withCredentials: true,
 });
 
