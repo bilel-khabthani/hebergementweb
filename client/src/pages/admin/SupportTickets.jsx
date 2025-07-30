@@ -52,11 +52,10 @@ export default function SupportTickets() {
         console.log('Fetching tickets with token:', token?.slice(0, 10) + '...');
         console.log('GET URL:', `${API_URL}/api/support/admin/tickets?page=${currentPage}&limit=${itemsPerPage}`);
         const response = await axios.get(`${API_URL}/api/support/admin/tickets`, {
-  params: { page: currentPage, limit: itemsPerPage },
-  headers: { 'x-token': token },
-  withCredentials: true,
-});
-
+          params: { page: currentPage, limit: itemsPerPage },
+          headers: { 'Authorization': `Bearer ${token}` },
+          withCredentials: true,
+        });
         console.log('Fetched tickets:', response.data);
         setTickets(Array.isArray(response.data.tickets) ? response.data.tickets : []);
         setTotalTickets(response.data.total || 0);
@@ -167,8 +166,7 @@ export default function SupportTickets() {
       const response = await axios.post(
         `${API_URL}/api/support/${selectedTicket._id}/reply`,
         { reply: replyContent },
-        { headers: { 'x-token': token }, 
-        withCredentials: true }
+        { headers: { 'Authorization': `Bearer ${token}` }, withCredentials: true }
       );
       console.log('Reply response:', response.data);
       setTickets((prev) =>
@@ -592,7 +590,7 @@ export default function SupportTickets() {
     try {
       const token = localStorage.getItem('token');
       const res = await axios.patch(`${API_URL}/api/support/${selectedTicket._id}/close`, {}, {
-       headers: { 'x-token': token },
+        headers: { 'Authorization': `Bearer ${token}` },
         withCredentials: true,
       });
 
