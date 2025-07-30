@@ -8,12 +8,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  useEffect(() => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  }
-}, []);
 
   useEffect(() => {
     const init = async () => {
@@ -88,7 +82,7 @@ const configureTawkTo = (user) => {
 };
   const loginWithGoogle = async (googleData) => {
     try {
-      const res = await axios.post('https://memo-bosi.onrender.com/api/auth/google', googleData, {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/google`, googleData, {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
