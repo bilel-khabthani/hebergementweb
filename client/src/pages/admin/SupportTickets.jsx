@@ -27,40 +27,71 @@ export default function SupportTickets() {
   const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-  if (!user) return; // pas d'utilisateur, ne rien faire
-  if (!localStorage.getItem('token')) {
-    setError('Token manquant, veuillez vous reconnecter');
-    setIsLoading(false);
-    return;
-  }
-  if (user.role !== 'admin') {
-    setError('Admin access required. Please log in with an admin account.');
-    setIsLoading(false);
-    return;
-  }
+    
 
-  const fetchTickets = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get(`${API_URL}/api/support/admin/tickets`, {
-        params: { page: currentPage, limit: itemsPerPage },
-        headers: { Authorization: `Bearer ${token}` },
-        withCredentials: true,
-      });
-      setTickets(Array.isArray(response.data.tickets) ? response.data.tickets : []);
-      setTotalTickets(response.data.total || 0);
-    } catch (error) {
-      // gestion erreur...
-    } finally {
+    console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
+    console.log('Using API_URL:', API_URL);
+    console.log('User:', { id: user?._id, email: user?.email, role: user?.role });
+    if (!user) return;
+    if (!user?._id) {
+      setError('Please log in to view support tickets.');
       setIsLoading(false);
+      return;
     }
-  };
+    if (user?.role !== 'admin') {
+      setError('Admin access required. Please log in with an admin account.');
+      setIsLoading(false);
+      return;
+    }
 
-  fetchTickets();
-}, [user, API_URL, currentPage, itemsPerPage]);
+    const fetchTickets = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const token = localStorage.getItem('token');
+        console.log('Fetching tickets with token:', token?.slice(0, 10) + '...');
+        console.log('GET URL:', `${API_URL}/api/support/admin/tickets?page=${currentPage}&limit=${itemsPerPage}`);
+        const response = await axios.get(`${API_URL}/api/support/admin/tickets`, {
+  params: { page: currentPage, limit: itemsPerPage },
+  withCredentials: true,
+});
 
+        console.log('Fetched tickets:', response.data);
+        setTickets(Array.isArray(response.data.tickets) ? response.data.tickets : []);
+        setTotalTickets(response.data.total || 0);
+        setRetryCount(0);
+      } catch (error) {
+        console.error('Error fetching tickets:', {
+          message: error.message,
+          code: error.code,
+          url: error.config?.url,
+          status: error.response?.status,
+          responseData: error.response?.data,
+        });
+        if (error.message.includes('Network Error') && retryCount < MAX_RETRIES) {
+          console.log(`Retrying (${retryCount + 1}/${MAX_RETRIES})...`);
+          setRetryCount(retryCount + 1);
+          setTimeout(() => fetchTickets(), 2000);
+          return;
+        }
+        setError(
+          error.message.includes('Network Error')
+            ? `Cannot connect to the server at ${API_URL}. Please ensure the backend is running and try again.`
+            : error.response?.status === 404
+            ? 'API endpoint not found. Please check if the backend is running at the correct URL.'
+            : error.response?.status === 401
+            ? 'Authentication failed. Please log in again.'
+            : error.response?.status === 403
+            ? 'Admin access required. Please log in with an admin account.'
+            : `Failed to fetch tickets: ${error.response?.data?.message || error.message}`
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTickets();
+  }, [user, API_URL, currentPage, itemsPerPage]);
 
   const getThemeColors = () => ({
     background: theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50',
