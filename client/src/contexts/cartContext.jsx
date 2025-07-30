@@ -27,20 +27,21 @@ export const CartProvider = ({ children }) => {
       // Connecté → fusion panier local + récupérer panier serveur
       const localCart = JSON.parse(localStorage.getItem("guest_cart")) || [];
       if (localCart.length > 0) {
-        await axios.post(
-          "http://localhost:8080/api/panier/merge",
-          { items: localCart },
-          {
-            withCredentials: true,
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+       await axios.post(
+  "https://memo-bosi.onrender.com/api/panier/merge",
+  { items: localCart },
+  {
+    withCredentials: true,
+    headers: { "Content-Type": "application/json" },
+  }
+);
+
         localStorage.removeItem("guest_cart");
       }
 
-      const res = await axios.get("http://localhost:8080/api/panier", {
-        withCredentials: true,
-      });
+      const res = await axios.get("https://memo-bosi.onrender.com/api/panier", {
+  withCredentials: true,
+});
       setCartItems(res.data.items || []);
     } catch (error) {
       console.error("Erreur chargement/fusion panier :", error);
@@ -85,13 +86,13 @@ export const CartProvider = ({ children }) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/panier/add",
-        { produitId: product._id, quantite: 1 },
-        {
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+  "https://memo-bosi.onrender.com/api/panier/add",
+  { produitId: product._id, quantite: 1 },
+  {
+    withCredentials: true,
+    headers: { "Content-Type": "application/json" },
+  }
+);
       setCartItems(res.data.items);
     } catch (error) {
       console.error("Erreur ajout panier :", error);
@@ -120,14 +121,14 @@ export const CartProvider = ({ children }) => {
     }
 
     try {
-      const res = await axios.post(
-        "http://localhost:8080/api/panier/decrement",
-        { produitId: productId },
-        {
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+     const res = await axios.post(
+  "https://memo-bosi.onrender.com/api/panier/decrement",
+  { produitId: productId },
+  {
+    withCredentials: true,
+    headers: { "Content-Type": "application/json" },
+  }
+);
       setCartItems(res.data.items);
     } catch (error) {
       console.error("Erreur décrémentation panier :", error);
@@ -142,9 +143,9 @@ export const CartProvider = ({ children }) => {
     }
 
     try {
-      const res = await axios.delete("http://localhost:8080/api/panier/vider", {
-        withCredentials: true,
-      });
+      const res = await axios.delete("https://memo-bosi.onrender.com/api/panier/vider", {
+  withCredentials: true,
+});
       setCartItems(res.data.items || []);
     } catch (error) {
       console.error("Erreur vidage panier :", error);
@@ -153,9 +154,10 @@ export const CartProvider = ({ children }) => {
 
   const handleRemove = async (productId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/panier/${productId}`, {
-        withCredentials: true,
-      });
+      await axios.delete(`https://memo-bosi.onrender.com/api/panier/${productId}`, {
+  withCredentials: true,
+});
+
       await fetchCart(); // Actualiser le panier local après suppression
       Swal.fire({
         icon: "success",
