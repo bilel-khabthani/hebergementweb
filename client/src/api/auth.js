@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create a reusable Axios instance
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL, // ✅ Change if your backend runs on a different port or subdomain
+  baseURL: 'https://memo-bosi.onrender.com/api/auth', // ✅ Change if your backend runs on a different port or subdomain
   withCredentials: true, // 🧠 Sends/receives cookies like preAuthToken and token
 });
 
@@ -35,9 +35,9 @@ export const checkAuthUser = async () => {
 //-------------------------------
 // 🚪 LOGOUT
 export const logoutUser = async () => {
-  return await api.get('/logout');}
+  return await api.get('/logout');
+};
 
-  
 //-------------------------------
 // 🔁 RESEND VERIFY OTP (requires preAuthToken or token)
 export const resendVerifyOtpUser = async () => {
@@ -54,5 +54,4 @@ export const resetPasswordUser = async (formdata) => {
   return await api.post('/reset-password',  formdata );
 };
 
-export default api; 
-
+export default api;
